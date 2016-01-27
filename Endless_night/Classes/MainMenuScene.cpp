@@ -40,11 +40,11 @@ bool MainMenuScene::init()
         return false;
     }
     
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    Size visibleSize = Director::getInstance()->getVisibleSize();//init size
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();// init the origin 
 
 
-	auto backgroundSprite = Sprite::create("Endless_Night.png");
+	auto backgroundSprite = Sprite::create("Endless_Night.png");// main menu image 
 	backgroundSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(backgroundSprite);
 	SimpleAudioEngine::getInstance()->playBackgroundMusic(MENU_SFX);//menu sound 
@@ -57,14 +57,14 @@ bool MainMenuScene::init()
 
 	//when click play it goes to the game scene
 	auto NewGame = MenuItemImage::create("newGame.png","newGame.png",CC_CALLBACK_1(MainMenuScene::GoToGameScene,this));
-	NewGame->setPosition(Point(visibleSize.width / 5 + origin.x, visibleSize.height / 3 + origin.y));
+	NewGame->setPosition(Point(visibleSize.width / 5 + origin.x, visibleSize.height / 5 + origin.y));
 
 	//options
 	auto options = MenuItemImage::create("options.png", "options.png", CC_CALLBACK_1(MainMenuScene::GoToTheOptionsScene, this));
-	options->setPosition(Point(visibleSize.width / 2.5 + origin.x, visibleSize.height / 3 + origin.y));
+	options->setPosition(Point(visibleSize.width / 2.5 + origin.x, visibleSize.height / 5 + origin.y));
 
 	auto closeItem = MenuItemImage::create("exit.png", "exit.png", CC_CALLBACK_1(MainMenuScene::menuCloseCallback, this));
-	closeItem->setPosition(Point(visibleSize.width / 1.5 + origin.x, visibleSize.height / 3 + origin.y));
+	closeItem->setPosition(Point(visibleSize.width / 1.66 + origin.x, visibleSize.height / 5 + origin.y));
 
 	
 	auto NewGameButton = Menu::create(NewGame, NULL);
