@@ -1,6 +1,6 @@
 #include "LeaderBoard.h"
 #include "Definitions.h"
-#include "EndGameScene.h"
+#include "MainMenuScene.h"
 
 USING_NS_CC;
 
@@ -36,7 +36,7 @@ bool LeaderBoard::init()
 	label->setColor(ccc3(255, 215, 0));
 	this->addChild(label, 1);
 
-	auto MainMenu = MenuItemImage::create("Mainmenu.png", "Mainmenu.png", CC_CALLBACK_1(LeaderBoard::GoToEndGameScene, this));
+	auto MainMenu = MenuItemImage::create("Mainmenu.png", "Mainmenu.png", CC_CALLBACK_1(LeaderBoard::GoToMainMenuScene, this));
 	MainMenu->setPosition(Vec2(visibleSize.width / 2, origin.y + visibleSize.height / 4.5));
 
 	auto menu1 = Menu::create(MainMenu, NULL);
@@ -91,8 +91,8 @@ void LeaderBoard::menuCloseCallback(Ref* pSender)
     exit(0);
 #endif
 }
-void LeaderBoard::GoToEndGameScene(Ref* sender)
+void LeaderBoard::GoToMainMenuScene(Ref* sender)
 {
-	auto scene = EndGameScene::createScene();
+	auto scene = MainMenuScene::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }

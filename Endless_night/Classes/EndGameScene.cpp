@@ -1,5 +1,7 @@
 #include "EndGameScene.h"
 #include "LeaderBoard.h"
+#include "GameScene.h"
+#include "MainMenuScene.h"
 #include "Definitions.h"
 
 USING_NS_CC;
@@ -39,7 +41,7 @@ bool EndGameScene::init()
 	auto closeItem = MenuItemImage::create(
 										   "CloseNormal.png",
                                            "CloseSelected.png",
-                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
+                                           CC_CALLBACK_1(EndGameScene::menuCloseCallback, this));
     
 	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
                                 origin.y + closeItem->getContentSize().height/2));
@@ -63,21 +65,21 @@ bool EndGameScene::init()
 
 	this->addChild(label, 1);
 	
-	auto MainMenu = MenuItemImage::create("Mainmenu.png", "Mainmenu.png", CC_CALLBACK_1(HelloWorld::GoToLeaderBoard, this));
+	auto MainMenu = MenuItemImage::create("Mainmenu.png", "Mainmenu.png", CC_CALLBACK_1(EndGameScene::GoToMainMenuScene, this));
 	MainMenu->setPosition(Vec2(visibleSize.width / 2, origin.y + visibleSize.height / 1.5));
 
 	auto menu1 = Menu::create(MainMenu, NULL);
 	menu1->setPosition(Vec2::ZERO);
 	this->addChild(menu1, 1);
 
-	auto TryAgain = MenuItemImage::create("TryAgain.png", "TryAgain.png", CC_CALLBACK_1(HelloWorld::GoToLeaderBoard, this));
+	auto TryAgain = MenuItemImage::create("TryAgain.png", "TryAgain.png", CC_CALLBACK_1(EndGameScene::GoToGameScene, this));
 	TryAgain->setPosition(Vec2(visibleSize.width / 2, origin.y + visibleSize.height / 1.8));
 
 	auto menu2 = Menu::create(TryAgain, NULL);
 	menu2->setPosition(Vec2::ZERO);
 	this->addChild(menu2, 1);
 
-	auto LeaderBoard = MenuItemImage::create("LeaderBoard.png", "LeaderBoard.png", CC_CALLBACK_1(HelloWorld::GoToLeaderBoard, this));
+	auto LeaderBoard = MenuItemImage::create("LeaderBoard.png", "LeaderBoard.png", CC_CALLBACK_1(EndGameScene::GoToLeaderBoard, this));
 	LeaderBoard->setPosition(Vec2(visibleSize.width / 2, origin.y + visibleSize.height / 2.2));
 
 	auto menu3 = Menu::create(LeaderBoard, NULL);
@@ -101,6 +103,19 @@ void EndGameScene::GoToLeaderBoard(Ref* psender)
 	auto scene = LeaderBoard::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
+
+void EndGameScene::GoToGameScene(Ref* psender)
+{
+	auto scene = GameScene::createScene();
+	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+}
+
+void EndGameScene::GoToMainMenuScene(Ref* psender)
+{
+	auto scene = MainMenuScene::createScene();
+	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+}
+
 
 void EndGameScene::menuCloseCallback(Ref* pSender)
 {

@@ -18,6 +18,8 @@ public:
 
 private:
 	void GoToLeaderBoard(cocos2d::Ref *sender);
+	void GoToGameScene(cocos2d::Ref *sender);
+	void GoToMainMenuScene(cocos2d::Ref *sender);
 };
 
 #endif // _END_GAME_SCENE_H__

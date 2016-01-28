@@ -18,6 +18,6 @@ public:
 	CREATE_FUNC(LeaderBoard);
 
 private:
-	void GoToEndGameScene(cocos2d::Ref *sender);
+	void GoToMainMenuScene(cocos2d::Ref *sender);
 };
 #endif // __LEADERBOARD_H_
