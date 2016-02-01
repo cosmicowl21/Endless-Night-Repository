@@ -2,6 +2,7 @@
 #define __GAME_SCENE_H__
 
 #include "cocos2d.h"// brining in cocos funcality 
+#include "Box2D/Box2D.h"
 
 using namespace cocos2d; // namespace for cococs so you dont have to use cocos2d:: every time 
 

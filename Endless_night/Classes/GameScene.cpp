@@ -22,7 +22,7 @@ enum class PhysicsCategory
 	//All = PhysicsCategory::Monster | PhysicsCategory::Projectile // 3
 };
 
-Scene* GameScene::createScene()
+Scene* GameScene::createScene()//create scene
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();//creating the scene with added physcis engine 
@@ -76,13 +76,6 @@ bool GameScene::init()//initing the game so the scene can be made
 	auto eventListener = EventListenerTouchOneByOne::create();
 	eventListener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, _player);
-
-	// trying to get the shooting mechanic working for second tower 
-	//breaking because of this ????????
-	//auto eventListener2 = EventListenerTouchOneByOne::create();
-	//eventListener2->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
-	//this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener2, _player2);//getting the mouse click form the player
-
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegan, this);
