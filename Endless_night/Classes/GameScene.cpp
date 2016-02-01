@@ -1,6 +1,7 @@
 #include "GameScene.h"//bringing in the game scene
 #include "SimpleAudioEngine.h"//iporting the audio engine
 #include "MainMenuScene.h"
+#include "EndGameScene.h"
 #include "Definitions.h"
 
 using namespace CocosDenshion; // namespace for audio engine 
@@ -225,5 +226,12 @@ void GameScene::menuCloseCallback(Ref* pSender)// setting up the close button "q
 	void GameScene::GoToMainMenuScene(Ref *sender)
 	{
 		auto scene = MainMenuScene::createScene();
+		Director::getInstance()->replaceScene(TransitionFade::create(TRANSATION_TIME, scene));
+	}
+
+
+	void GameScene::GoToEndGameScene(Ref *sender)
+	{
+		auto scene = EndGameScene::createScene();
 		Director::getInstance()->replaceScene(TransitionFade::create(TRANSATION_TIME, scene));
 	}

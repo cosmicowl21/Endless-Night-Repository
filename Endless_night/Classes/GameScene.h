@@ -37,6 +37,7 @@ public:
 	int enemiesKilled;
 
 	void GoToMainMenuScene(Ref *sender);
+	void GoToEndGameScene(Ref *sender);
 
 	// implement the "static create()" method manually
 	CREATE_FUNC(GameScene);

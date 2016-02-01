@@ -79,7 +79,7 @@ bool EndGameScene::init()
 	menu2->setPosition(Vec2::ZERO);
 	this->addChild(menu2, 1);
 
-	auto LeaderBoard = MenuItemImage::create("LeaderBoard.png", "LeaderBoard.png", CC_CALLBACK_1(EndGameScene::GoToLeaderBoard, this));
+	auto LeaderBoard = MenuItemImage::create("LeaderBoard2.png", "LeaderBoard2.png", CC_CALLBACK_1(EndGameScene::GoToLeaderBoard, this));
 	LeaderBoard->setPosition(Vec2(visibleSize.width / 2, origin.y + visibleSize.height / 2.2));
 
 	auto menu3 = Menu::create(LeaderBoard, NULL);
