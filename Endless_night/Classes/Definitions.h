@@ -7,6 +7,7 @@
 #define OBSTICAL_COLLISION_BITMASK 0x000001
 #define MONSTER_COLLISION_BITMASK 0X000002
 #define POINT_COLLISION_BITMASK 0x000003
+#define PlayerScore 1
 
 
 #endif // __Definitions_H__

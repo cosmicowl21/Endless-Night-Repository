@@ -62,8 +62,6 @@ bool GameScene::init()//initing the game so the scene can be made
 	_player->setPosition(Vec2(winSize.width * 0.1, winSize.height * 0.5));//setting the players location 
 	this->addChild(_player);//adding the player to the scene
 
-	
-
 	_player2 = Sprite::create("castle.png");//creating the player 2 which is the second tower 
 	_player2->setPosition(Vec2(winSize.width * 0.1, winSize.height * 0.7));//setting the players location 
 	 this->addChild(_player2);//adding the player to the scene
@@ -93,6 +91,24 @@ bool GameScene::init()//initing the game so the scene can be made
 	backToMenu->setPosition(Point::ZERO);
 	this->addChild(backToMenu);
 
+	CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
+	
+	const float ScoreFontSize = 24;
+	const float ScorePositionX = 24;
+	const float ScorePositionY = 12;
+
+	score = CCLabelTTF::create("Score 0", "fonts/Arial", ScoreFontSize);
+	score->setAnchorPoint(ccp(0, 1));
+	score->setPosition(ccp(ScorePositionX, visibleSize.height - ScorePositionY));
+	this->addChild(score);
+
+	highscore = CCLabelTTF::create("Best 0", "fonts/Marker Felt.ttf", ScoreFontSize);
+	highscore->setAnchorPoint(ccp(0, 1));
+	highscore->setPosition(ccp(ScorePositionX, score->boundingBox().origin.y - ScorePositionY));
+	this->addChild(highscore);
+	
+	gameScore = 0;
+
 	return true;// returnign that all is ok as is a bool(booean class)
 
 }//end is init()
@@ -114,9 +130,6 @@ void GameScene::addMonster(float dt)
 	physicsBody->setCollisionBitmask((int)PhysicsCategory::None);
 	physicsBody->setContactTestBitmask((int)PhysicsCategory::Projectile);
 	
-
-
-
 	monster->setPhysicsBody(physicsBody);// adding monster to the physics engine so it can be colided 
 	// 1
 	// giving the monster some movement and coordnates
@@ -141,6 +154,7 @@ void GameScene::addMonster(float dt)
 	auto actionMove = MoveTo::create(randomDuration, Vec2(-monsterContentSize.width / 2, randomY));
 	auto actionRemove = RemoveSelf::create();
 	monster->runAction(Sequence::create(actionMove, actionRemove, nullptr));
+	scored = false;
 }
 
 bool GameScene::onTouchBegan(Touch * touch, Event *unused_event)
@@ -149,8 +163,6 @@ bool GameScene::onTouchBegan(Touch * touch, Event *unused_event)
 	//setting up the vecs and what they are doing 
 	Vec2 touchLocation = touch->getLocation();
 	Vec2 offset = touchLocation - _player->getPosition();
-
-	
 
 	// 3
 	if (offset.x < 0 ) //offset is the area at which the "bullet" will fire 
@@ -163,8 +175,6 @@ bool GameScene::onTouchBegan(Touch * touch, Event *unused_event)
 	projectile->setPosition(_player->getPosition());
 	this->addChild(projectile);//adding it to the layer 
 
-	
-
 	//setting the phycis of the projectile 
 	auto projectileSize = projectile->getContentSize();
 	auto physicsBody = PhysicsBody::createCircle(projectileSize.width / 2);
@@ -173,8 +183,6 @@ bool GameScene::onTouchBegan(Touch * touch, Event *unused_event)
 	physicsBody->setCollisionBitmask((int)PhysicsCategory::None);
 	physicsBody->setContactTestBitmask((int)PhysicsCategory::Monster);
 	projectile->setPhysicsBody(physicsBody);
-
-	
 
 	// 5
 	offset.normalize();
@@ -187,7 +195,6 @@ bool GameScene::onTouchBegan(Touch * touch, Event *unused_event)
 	auto actionMove = MoveTo::create(2.0f, realDest);
 	auto actionRemove = RemoveSelf::create();
 	projectile->runAction(Sequence::create(actionMove, actionRemove, nullptr));
-
 
 	// sound plays once the player clicks the screen 
 	SimpleAudioEngine::getInstance()->playEffect(TOWER_SHOOTING_SFX);//tower shooting sound 
@@ -204,11 +211,9 @@ bool GameScene::onContactBegan(PhysicsContact &contact)
 	auto nodeEnemy = contact.getShapeA()->getBody()->getNode();//could be enemy or visa veras 
 	auto nodeProjectile = contact.getShapeB()->getBody()->getNode();//could be projectile or visa versa 
 
-	
 	nodeEnemy->removeFromParent();//remove the enemy 
 	SimpleAudioEngine::getInstance()->playEffect(DEATH_SOUND_SFX);//enemy dying sound
 	nodeProjectile->removeFromParent();//remove the projectile 
-
 	
 	return true;
 }
@@ -234,4 +239,14 @@ void GameScene::menuCloseCallback(Ref* pSender)// setting up the close button "q
 	{
 		auto scene = EndGameScene::createScene();
 		Director::getInstance()->replaceScene(TransitionFade::create(TRANSATION_TIME, scene));
+	}
+
+	void GameScene::SetIsScored()
+	{
+		scored = true;
+	}
+
+	bool GameScene::GetIsScored()
+	{
+		return scored;
 	}

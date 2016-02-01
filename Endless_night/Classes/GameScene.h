@@ -13,11 +13,13 @@ private:
 	//init players (towers)
 	Sprite* _player;
 	Sprite* _player2;
-
+	int gameScore;
+		
 	//might be needed not sure yet 
 	//void setPhysicsWorld(PhysicsWorld * world) { sceneWorld = world; };
 	//PhysicsWorld * sceneWorld;
 public:
+
 	static cocos2d::Scene* createScene();// creating the scene from here 
 
 	virtual bool init();// creating the bool init calss 
@@ -35,6 +37,13 @@ public:
 	void menuCloseCallback(cocos2d::Ref* pSender);
 
 	int enemiesKilled;
+
+	cocos2d::LabelTTF *score;
+	cocos2d::LabelTTF *highscore;
+
+	bool scored;
+	void SetIsScored();
+	bool GetIsScored();
 
 	void GoToMainMenuScene(Ref *sender);
 	void GoToEndGameScene(Ref *sender);
